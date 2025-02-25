@@ -5,7 +5,8 @@
 package gui;
 
 import java.util.Random; //Para poner las minas aleatoriamente en el tablero
-
+import Nodo;
+import Lista; //Estructura auxiliar para el almacenaje de la posición de las minas
 /**
  *
  * @
@@ -31,6 +32,8 @@ public Tablero(int filas, int columnas, int minas){
 
 private void ponerMinas() {
     Random random = new Random(); //generador de numeros aleatorios
+    NodoMina aux = new NodoMina(); // Nodo vacío auxiliar de tipo mina (recibe como parámetros el n°fila y el n°columna)
+    Lista minas = new Lista(); // Lista vacía para almacenar las minas
     int minasPuestas = 0; //cantidad de minas puestas en el tablero
     while (minasPuestas < minas) { //mientras que minasPuestas sea menor que las minas en el tablero
         int fila = random.nextInt(filas); //Se crea una fila aleatoria
@@ -38,6 +41,10 @@ private void ponerMinas() {
         if (!minasLugar[fila][columna]) { //Ver si no hay minas en esa posicion
             minasLugar[fila][columna] = true; //Pone la mina
             minasPuestas++; //aumenta la cantidad de minas puestas en el tablero
+            //Modificamos el valor de fila y columna del NodoMina y lo agregamos al final de la lista vacía
+            aux.setFila(fila);
+            aux.setColumna(columna);
+            minas.InsertarAlFinal(aux);   
         }
     }       
 }
